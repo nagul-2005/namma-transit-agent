@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namma Transit ✦ Bengaluru Mobility Assistant</title>
+  <link rel="stylesheet" href="/static/style.css?v=4.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- SaaS Background Video & Frosted Layer -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_015952_e1deeb12-8fb7-4071-a42a-60779fc64ab6.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="buddy-profile">
+        <div class="avatar-wrapper">
+          <div class="buddy-avatar">✦</div>
+          <span class="online-indicator" title="Live Bengaluru Transit Agent"></span>
+        </div>
+        <div class="buddy-info">
+          <div class="buddy-name">✦ Namma Transit <span class="version-badge">v2.2</span></div>
+          <div class="buddy-subtitle">Bengaluru commute intelligence • Metro, BMTC & Auto</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="reset-btn" class="icon-btn" title="Reset Conversation Memory">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reset</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat Messages Scroll Container -->
+    <main class="chat-viewport" id="chat-viewport">
+      <div class="welcome-card" id="welcome-card">
+        <div class="welcome-badge">👋 Namaskara Bengaluru!</div>
+        <h1>Where are we heading today?</h1>
+        <p>Ask me anything about Namma Metro fares, BMTC bus telemetry, Namma Yatri auto rates, or optimal routes across Bengaluru!</p>
+        
+        <div class="suggested-chips">
+          <button class="chip" data-query="I want to go from Halasuru to Church Street">
+            <span>Halasuru to Church Street</span>
+          </button>
+          <button class="chip" data-query="I want to go to Indiranagar">
+            <span>I want to go to Indiranagar</span>
+          </button>
+          <button class="chip" data-query="metro fare from RV Road to Electronic City">
+            <span>RV Road to Electronic City</span>
+          </button>
+          <button class="chip" data-query="is bus 335e delayed?">
+            <span>Bus 335E Status</span>
+          </button>
+          <button class="chip" data-query="auto fare for 7 km">
+            <span>Auto for 7 km</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="messages-list" class="messages-list"></div>
+
+      <!-- Typing Indicator -->
+      <div id="typing-indicator" class="typing-indicator hidden">
+        <div class="buddy-avatar small">🚇</div>
+        <div class="typing-bubble">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Input Bar -->
+    <footer class="input-container">
+      <form id="chat-form" class="chat-form">
+        <textarea 
+          id="message-input" 
+          rows="1" 
+          placeholder="Ask about metro fares, bus route status, or auto rates..."
+          autocomplete="off"
+          required
+        ></textarea>
+        <button type="submit" id="send-btn" class="send-btn" title="Send message">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </form>
+      <div class="footer-note">
+        <span>Zero-cost pre-router active • Powered by Gemini Free Tier rotation</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

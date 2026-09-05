@@ -174,4 +174,5 @@ Run the full automated pytest suite (66 passing unit & integration tests):
 
 **Namma Transit Agent** — *Smart mobility for Namma Bengaluru. Adjust maadi!* 🚇🚌🛺
 #   n a m m a - t r a n s i t - a g e n t  
+ #   n a m m a - t r a n s i t - a g e n t  
  
