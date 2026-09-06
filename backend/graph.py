@@ -269,7 +269,7 @@ SYSTEM_PROMPT: str = (
     "   ➔ web_search(query)\n"
     "\n"
     "4. HUMAN-IN-THE-LOOP (HITL) CLARIFICATION RULES:\n"
-    "1. Origin Missing: If destination is given without an origin (e.g., 'How to reach Cubbon Park?'), "
+    "1. Origin Missing: Analyse the user input question and use every time If destination is given without an origin (e.g., 'How to reach Cubbon Park?', 'Suggest cheapest way to Cubbon Park.','I want to go to Indiranagar.'),"
     "prompt the user with 3 popular dynamic spots + Option 4 custom text.\n"
     "2. Mode Missing: If origin and destination are given without a preferred mode, prompt with clean "
     "selectable choices (Option 1: Metro, Option 2: BMTC Bus, Option 3: Auto/Cab, Option 4: Compare All).\n"
