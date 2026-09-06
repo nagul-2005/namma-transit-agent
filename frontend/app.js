@@ -27,6 +27,11 @@
     this.style.height = Math.min(this.scrollHeight, 120) + 'px';
   });
 
+  // Scroll to bottom on mobile input focus (when virtual keyboard appears)
+  messageInput.addEventListener('focus', function () {
+    setTimeout(scrollToBottom, 300);
+  });
+
   // Handle Enter key submit (Shift+Enter for new line)
   messageInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) {

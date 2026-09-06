@@ -28,7 +28,8 @@ body {
   font-family: var(--font-body);
   color: hsl(var(--foreground));
   height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,6 +37,8 @@ body {
   position: relative;
   background-color: #f1f5f9;
   letter-spacing: -0.01em;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Background Video & Frosted Overlay */
@@ -583,28 +586,225 @@ body {
   40% { transform: scale(1); }
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 640px) {
+/* Responsive Breakpoints & Mobile Optimization */
+@media (max-width: 768px) {
   .app-container {
     height: 100vh;
-    max-height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    width: 100%;
     border-radius: 0;
     border: none;
+    box-shadow: none;
+  }
+
+  .app-header {
+    padding: max(10px, env(safe-area-inset-top, 10px)) 16px 10px 16px;
+    gap: 10px;
+  }
+
+  .buddy-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  .buddy-name {
+    font-size: 0.98rem;
+    gap: 6px;
+  }
+
+  .version-badge {
+    font-size: 0.62rem;
+    padding: 1px 6px;
+  }
+
+  .buddy-subtitle {
+    font-size: 0.74rem;
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .icon-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    gap: 4px;
   }
 
   .chat-viewport {
-    padding: 16px;
-  }
-
-  .message-row {
-    max-width: 92%;
+    padding: 14px 12px;
+    gap: 14px;
+    overscroll-behavior-y: contain;
   }
 
   .welcome-card {
-    padding: 22px;
+    padding: 20px 16px;
+    border-radius: 18px;
+    margin-bottom: 4px;
+  }
+
+  .welcome-badge {
+    font-size: 0.74rem;
+    padding: 3px 10px;
+    margin-bottom: 10px;
   }
 
   .welcome-card h1 {
-    font-size: 2.1rem;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .welcome-card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* Horizontal touch-scrollable chip carousel on mobile */
+  .suggested-chips {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+    gap: 8px;
+    scrollbar-width: none;
+  }
+
+  .suggested-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    white-space: nowrap;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  .message-row {
+    max-width: 95%;
+    gap: 8px;
+  }
+
+  .msg-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 8px;
+    margin-top: 2px;
+  }
+
+  .msg-bubble {
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    border-radius: 16px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .interactive-option-btn {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    margin: 6px 0;
+    min-height: 44px;
+    border-radius: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .interactive-option-btn:active {
+    background: #e0e7ff;
+    border-color: hsl(var(--accent));
+    transform: scale(0.99);
+  }
+
+  .input-container {
+    padding: 10px 12px max(10px, env(safe-area-inset-bottom, 10px)) 12px;
+  }
+
+  .chat-form {
+    padding: 6px 8px 6px 16px;
+    gap: 8px;
+  }
+
+  /* 16px font-size prevents iOS Safari auto-zoom on input focus */
+  .chat-form textarea {
+    font-size: 16px;
+    padding: 6px 0;
+    line-height: 1.4;
+  }
+
+  .send-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  .footer-note {
+    font-size: 0.65rem;
+    margin-top: 4px;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: max(8px, env(safe-area-inset-top, 8px)) 12px 8px 12px;
+  }
+
+  .buddy-profile {
+    gap: 10px;
+  }
+
+  .buddy-name {
+    font-size: 0.92rem;
+  }
+
+  .buddy-subtitle {
+    max-width: 170px;
+    font-size: 0.7rem;
+  }
+
+  .icon-btn {
+    padding: 5px 10px;
+    font-size: 0.74rem;
+  }
+
+  .chat-viewport {
+    padding: 10px 8px;
+    gap: 12px;
+  }
+
+  .welcome-card {
+    padding: 16px 12px;
+  }
+
+  .welcome-card h1 {
+    font-size: 1.45rem;
+  }
+
+  .welcome-card p {
+    font-size: 0.82rem;
+  }
+
+  .message-row {
+    max-width: 98%;
+    gap: 6px;
+  }
+
+  .msg-bubble {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .input-container {
+    padding: 8px 8px max(8px, env(safe-area-inset-bottom, 8px)) 8px;
   }
 }
