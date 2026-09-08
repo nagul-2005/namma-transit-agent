@@ -94,6 +94,14 @@ class TestMetroSchedule:
         assert "interchange at RV Road" in out
         assert "Central Silk Board" in out
 
+    def test_station_with_punctuation_and_suffixes(self) -> None:
+        out = get_metro_schedule.invoke({"origin": "Majestic.", "destination": "Indiranagar."})
+        assert "Kempegowda (Majestic) → Indiranagar" in out
+        assert "Token fare" in out
+
+        out_suffix = get_metro_schedule.invoke({"origin": "Majestic metro", "destination": "Whitefield station."})
+        assert "Kempegowda (Majestic) → Whitefield (Kadugodi)" in out_suffix
+
 
 class TestBmtcStatus:
     @pytest.mark.parametrize("route", ["335E", "335e"])

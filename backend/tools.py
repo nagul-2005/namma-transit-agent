@@ -132,22 +132,40 @@ STATION_ALIASES: Final[dict[str, str]] = {
 def _resolve_station(raw: str) -> tuple[str, str, float] | None:
     """Resolve a user-provided station name to its canonical Purple/Green/Yellow line
     entry. Returns (station, side, cumulative_km) or None if unrecognised."""
-    query: str = re.sub(r"\s+", " ", raw.strip().lower())
-    query = STATION_ALIASES.get(query, query).lower()
+    if not raw:
+        return None
+
+    # 1. Strip leading/trailing punctuation and normalize whitespace
+    cleaned: str = re.sub(r"^[^\w]+|[^\w]+$", "", raw.strip())
+    query: str = re.sub(r"\s+", " ", cleaned.lower()).strip()
+    if not query:
+        return None
 
     lines: tuple[tuple[tuple[str, ...], str, tuple[float, ...]], ...] = (
         (PURPLE_LINE, "purple", PURPLE_CUM_KM),
         (GREEN_LINE, "green", GREEN_CUM_KM),
         (YELLOW_LINE, "yellow", YELLOW_CUM_KM),
     )
-    for line, side, cums in lines:
-        hit: int = _index_of(line, query, fuzzy=False)
-        if hit >= 0:
-            return (line[hit], side, cums[hit])
-    for line, side, cums in lines:
-        hit = _index_of(line, query, fuzzy=True)
-        if hit >= 0:
-            return (line[hit], side, cums[hit])
+
+    # Generate candidate variations (e.g. "majestic metro" -> "majestic")
+    candidates: list[str] = [query]
+    stripped_suffix: str = re.sub(r"\b(metro\s*station|metro|station|stop)\b", "", query).strip()
+    stripped_suffix = re.sub(r"\s+", " ", stripped_suffix).strip()
+    if stripped_suffix and stripped_suffix != query:
+        candidates.append(stripped_suffix)
+
+    # Pass 1 & 2: Exact and substring matching on candidates and aliases
+    for cand in candidates:
+        cand_mapped: str = STATION_ALIASES.get(cand, cand).lower()
+        for line, side, cums in lines:
+            hit: int = _index_of(line, cand_mapped, fuzzy=False)
+            if hit >= 0:
+                return (line[hit], side, cums[hit])
+        for line, side, cums in lines:
+            hit = _index_of(line, cand_mapped, fuzzy=True)
+            if hit >= 0:
+                return (line[hit], side, cums[hit])
+
     return None
 
 

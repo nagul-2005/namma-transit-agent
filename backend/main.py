@@ -215,16 +215,17 @@ def _detect_outside_bangalore(text: str) -> bool:
 
 def _normalize_bangalore_area(name: str) -> str:
     """Normalize and auto-correct minor typos in Bangalore place names."""
-    cleaned: str = re.sub(r"[^\w\s]", " ", name.strip().lower())
+    stripped = re.sub(r"^[^\w]+|[^\w]+$", "", name.strip())
+    cleaned: str = re.sub(r"[^\w\s]", " ", stripped.lower())
     cleaned = re.sub(r"\s+", " ", cleaned).strip()
     if not cleaned:
-        return name.strip().title()
+        return stripped.title()
     if cleaned in BANGALORE_AREAS:
-        return name.strip().title()
+        return cleaned.title()
     matches = difflib.get_close_matches(cleaned, BANGALORE_AREAS, n=1, cutoff=0.7)
     if matches:
         return matches[0].title()
-    return name.strip().title()
+    return cleaned.title()
 
 
 def _is_bangalore_area(name: str) -> bool:
